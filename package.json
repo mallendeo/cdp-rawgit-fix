@@ -1,0 +1,36 @@
+{
+  "name": "cdp-rawgit-fix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "async-parallel": "^1.2.3",
+    "cheerio": "^1.0.0-rc.2",
+    "fs-request-cache": "^1.0.2",
+    "get-urls": "^8.0.0"
+  },
+  "repository": "mallendeo/fs-request-cache",
+  "author": {
+    "name": "Mauricio Allende",
+    "email": "mallendeo@outlook.com",
+    "url": "https://mallendeo.com"
+  },
+  "engines": {
+    "node": ">=9"
+  },
+  "files": [
+    "index.js",
+    "helpers.js",
+    "rawgit2jsdelivr.js"
+  ],
+  "bin": {
+    "cdp-rawgit-fix": "./index.js"
+  },
+  "keywords": [
+    "codepen",
+    "cdn",
+    "fix",
+    "rawgit",
+    "jsdelivr"
+  ]
+}
