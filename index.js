@@ -68,10 +68,10 @@ const getAllPens = async (page = 1, list = []) => {
 
         const allUrls = [
           ...resources.map(r => r.url.toLowerCase()),
-          ...getUrls(html),
-          ...getUrls(css),
-          ...getUrls(js),
-          ...getUrls(head)
+          ...getUrls(html || ''),
+          ...getUrls(css || ''),
+          ...getUrls(js || ''),
+          ...getUrls(head || '')
         ]
 
         return { ...pen, allUrls }
@@ -86,7 +86,7 @@ const getAllPens = async (page = 1, list = []) => {
     console.log('==')
     console.log('getting working links from jsdelivr...')
 
-    const fixed = await Parallel.map(
+    await Parallel.map(
       filtered,
       async pen => {
         let newUrls = []
