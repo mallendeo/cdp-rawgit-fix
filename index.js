@@ -54,13 +54,14 @@ const getAllPens = async (page = 1, list = []) => {
 // run
 ;(async () => {
   const allPens = await getAllPens()
+  let curr = 0
 
   try {
     const filtered = (await Parallel.map(
       allPens,
       async pen => {
         const $ = await dom(pen.href, { ttl: getTTL() })
-        console.log('📝 Got pen data:', pen.title)
+        console.log(`📝 Got pen (${++curr} of ${allPens.length}):`, pen.title)
 
         const enc = $('#init-data').val()
         const json = JSON.parse(enc)
