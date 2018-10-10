@@ -20,7 +20,7 @@ const getAllPens = async (page = 1, list = []) => {
 
   const data = await request(
     `https://codepen.io/${USER}/pens/popular/grid/${page}/?grid_type=list`,
-    { json: true }
+    { json: true, ttl: getTTL() }
   )
 
   const $ = cheerio.load(data.page.html)
@@ -59,7 +59,7 @@ const getAllPens = async (page = 1, list = []) => {
     const filtered = (await Parallel.map(
       allPens,
       async pen => {
-        const $ = await dom(pen.href, {})
+        const $ = await dom(pen.href, { ttl: getTTL() })
         console.log('📝 Got pen data:', pen.title)
 
         const enc = $('#init-data').val()
@@ -82,7 +82,9 @@ const getAllPens = async (page = 1, list = []) => {
     console.log('✅ Got all pens!')
 
     console.log(filtered.length, 'pens found with rawgit links')
-    console.log('getting new working links...')
+    console.log(filtered.map(pen => pen.href).join('\n'))
+    console.log('==')
+    console.log('getting working links from jsdelivr...')
 
     const fixed = await Parallel.map(
       filtered,
