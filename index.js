@@ -96,12 +96,17 @@ const getAllPens = async (page = 1, list = []) => {
         )
 
         for (const url of rawgitUrls) {
-          const newUrl = await rawGit2jsDelivr(url)
-          console.log('✅ URL fix found for', pen.title)
-          console.log('\tPen url: ', pen.href)
-          console.log('\tOld lib url: ', url)
-          console.log('\tNew lib url: ', newUrl)
-          newUrls.push(newUrl)
+          try {
+            const newUrl = await rawGit2jsDelivr(url)
+
+            console.log('✅ URL fix found for', pen.title)
+            console.log('\tPen url: ', pen.href)
+            console.log('\tOld lib url: ', url)
+            console.log('\tNew lib url: ', newUrl)
+            newUrls.push(newUrl)
+          } catch (err) {
+            console.error(err)
+          }
         }
 
         return { ...pen, newUrls }
